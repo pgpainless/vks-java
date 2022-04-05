@@ -1,12 +1,18 @@
+// SPDX-FileCopyrightText: 2022 Paul Schaub <vanitasvitae@fsfe.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package pgp.vks.client.exception;
 
-public class CertNotFoundException extends Exception {
+import java.net.ConnectException;
 
-    public CertNotFoundException(Throwable cause) {
-        super(cause);
-    }
+public class CertNotFoundException extends ConnectException {
 
     public CertNotFoundException() {
+        super();
+    }
 
+    public CertNotFoundException(String message) {
+        super(message);
     }
 }

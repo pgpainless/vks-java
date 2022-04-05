@@ -1,11 +1,17 @@
+// SPDX-FileCopyrightText: 2022 Paul Schaub <vanitasvitae@fsfe.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package pgp.vks.client;
 
-import pgp.certificate_store.Certificate;
-import pgp.vks.client.response.UploadResponse;
+import pgp.vks.client.v1.dto.UploadResponse;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.io.InputStream;
 
 public interface Upload {
 
-    UploadResponse cert(@Nonnull Certificate certificate);
+    UploadResponse cert(@Nonnull InputStream certInStream) throws IOException;
+
 }

@@ -2,7 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1.dummy_vks;
+package pgp.vks.client.v1.dto;
 
-public class DummyVks {
+public enum Status {
+    unpublished,
+    published,
+    revoked,
+    pending
 }
