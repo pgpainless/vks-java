@@ -16,22 +16,20 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 
+    // Arrays.areEqual, Base64...
     implementation("org.bouncycastle:bcutil-jdk15on:1.70")
-
-    // api("org.pgpainless:pgp-certificate-store:0.1.0")
-    // api("org.pgpainless:pgpainless-core:1.1.4")
 
     // @Nonnull, @Nullable...
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    // Lombok
+    // Lombok (@SneakyThrows...)
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     
     // JSON
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
 }
 
 test {
