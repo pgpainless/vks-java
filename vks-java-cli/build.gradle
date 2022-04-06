@@ -1,0 +1,32 @@
+// SPDX-FileCopyrightText: 2022 Paul Schaub <vanitasvitae@fsfe.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+plugins {
+    id 'application'
+}
+
+group 'org.pgpainless'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
+    // VKS-Java
+    implementation project(":vks-java")
+
+    // CLI
+    implementation "info.picocli:picocli:4.6.3"
+}
+
+application {
+    mainClass = 'pgp.vks.client.cli.VKSCLI'
+}
+
+test {
+    useJUnitPlatform()
+}

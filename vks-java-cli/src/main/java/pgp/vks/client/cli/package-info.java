@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-rootProject.name = 'VKS-Java'
-
-include 'vks-java',
-        'vks-java-cli'
+/**
+ * Command Line Interface for VKS-Java.
+ */
+package pgp.vks.client.cli;
