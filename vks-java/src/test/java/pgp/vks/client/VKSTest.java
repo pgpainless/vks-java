@@ -2,15 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.v1.impl;
+package pgp.vks.client;
 
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.io.Streams;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pgp.vks.client.RequestVerify;
-import pgp.vks.client.Upload;
-import pgp.vks.client.VKS;
 import pgp.vks.client.exception.CertCannotBePublishedException;
 import pgp.vks.client.exception.CertNotFoundException;
 

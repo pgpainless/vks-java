@@ -2,14 +2,14 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.v1.impl;
+package pgp.vks.client;
 
 import lombok.SneakyThrows;
-import pgp.vks.client.Get;
-import pgp.vks.client.RequestVerify;
-import pgp.vks.client.Upload;
-import pgp.vks.client.VKS;
 import pgp.vks.client.exception.UnsupportedApiException;
+import pgp.vks.client.v1.impl.GetImpl;
+import pgp.vks.client.v1.impl.RequestVerifyImpl;
+import pgp.vks.client.v1.impl.URLMapper;
+import pgp.vks.client.v1.impl.UploadImpl;
 
 import javax.annotation.Nonnull;
 import java.net.MalformedURLException;
