@@ -11,6 +11,13 @@ SPDX-License-Identifier: Apache-2.0
 
 Command Line Frontend for VKS-Java
 
+## Building
+
+To build the CLI app, use `gradle build`. An archive containing an executable can then be found in `vks-java-cli/build/distributions/`.  
+Extract it and navigate to the `bin` subdirectory, where you can find `vks-java-cli`/`vks-java-cli.bat` executables.
+
+## Usage Examples
+
 ```shell
 Usage: vkscli [COMMAND]
 Commands:
@@ -20,9 +27,7 @@ Commands:
   request-verification  Request verification for unverified user-ids
 ```
 
-## Usage Examples
-
-By default, the CLI application uses `https://keys.openpgp.org` as key server.
+By default, the CLI application uses `https://keys.openpgp.org` as key server.  
 To use another VKS, use the option `--key-server https://your.key.server` in any command.
 
 To retrieve a key from a Verifying Key Server, use the `get` subcommand:
