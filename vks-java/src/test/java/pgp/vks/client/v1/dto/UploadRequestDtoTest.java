@@ -2,17 +2,16 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1.dto;
+package pgp.vks.client.v1.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bouncycastle.util.encoders.Base64;
 import org.junit.jupiter.api.Test;
-import pgp.vks.client.v1.dto.UploadRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UploadRequestTest {
+public class UploadRequestDtoTest {
 
     private static final String TEST_CERT_ARMORED = "-----BEGIN PGP PUBLIC KEY BLOCK-----\n" +
             "Comment: 9DF2 C3FE 6F69 A3EE DBD5  FB81 69E8 A788 A36E 7BFD\n" +
@@ -71,21 +70,23 @@ public class UploadRequestTest {
 
     @Test
     public void testSerializeDeserializeArmoredCert() throws JsonProcessingException {
-        UploadRequest request = new UploadRequest(TEST_CERT_ARMORED);
+        UploadRequestDto request = new UploadRequestDto(TEST_CERT_ARMORED);
 
         String val = json.writeValueAsString(request);
-        request = json.readValue(val, UploadRequest.class);
+        request = json.readValue(val, UploadRequestDto.class);
 
         assertEquals(TEST_CERT_ARMORED, request.getKeyText());
     }
 
     @Test
     public void testSerializeDeserializeBase64() throws JsonProcessingException {
+        // raw bytes
         byte[] rawCert = Base64.decode(TEST_CERT_BASE64);
-        UploadRequest request = UploadRequest.fromBytes(rawCert);
+
+        UploadRequestDto request = UploadRequestDto.fromBytes(rawCert);
 
         String val = json.writeValueAsString(request);
-        request = json.readValue(val, UploadRequest.class);
+        request = json.readValue(val, UploadRequestDto.class);
 
         assertEquals(TEST_CERT_BASE64, request.getKeyText());
     }

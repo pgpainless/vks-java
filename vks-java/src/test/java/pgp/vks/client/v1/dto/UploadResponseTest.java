@@ -2,13 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1.dto;
+package pgp.vks.client.v1.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import pgp.vks.client.v1.dto.Status;
-import pgp.vks.client.v1.dto.UploadResponse;
+import pgp.vks.client.Status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +26,10 @@ public class UploadResponseTest {
         statusMap.put("hello@mail.world", Status.unpublished);
         String token = "t0k3n5tr1n9";
 
-        UploadResponse response = new UploadResponse(fingerprint, statusMap, token);
+        UploadResponseDto response = new UploadResponseDto(fingerprint, statusMap, token);
 
         String val = json.writeValueAsString(response);
-        response = json.readValue(val, UploadResponse.class);
+        response = json.readValue(val, UploadResponseDto.class);
 
         assertEquals(fingerprint, response.getKeyFingerprint());
         assertEquals(statusMap, response.getStatus());

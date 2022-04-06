@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class VerificationRequest {
+public class VerificationRequestDto {
 
     private final String token;
     private final List<String> addresses;
     private final List<String> locale;
 
-    public VerificationRequest(@JsonProperty("token") String token,
-                               @JsonProperty("addresses") List<String> addresses,
-                               @JsonProperty("locale") List<String> locale) {
+    public VerificationRequestDto(@JsonProperty("token") String token,
+                                  @JsonProperty("addresses") List<String> addresses,
+                                  @JsonProperty("locale") List<String> locale) {
         this.token = token;
         this.addresses = addresses;
         this.locale = locale;

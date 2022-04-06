@@ -6,11 +6,11 @@ package pgp.vks.client.v1.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ErrorResponse {
+public class ErrorResponseDto {
 
     private final String error;
 
-    public ErrorResponse(@JsonProperty("error") String error) {
+    public ErrorResponseDto(@JsonProperty("error") String error) {
         this.error = error;
     }
 

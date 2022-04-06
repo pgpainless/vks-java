@@ -2,45 +2,37 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1;
+package pgp.vks.client.v1.impl;
 
+import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.io.Streams;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pgp.vks.client.RequestVerify;
+import pgp.vks.client.Upload;
 import pgp.vks.client.VKS;
+import pgp.vks.client.exception.CertCannotBePublishedException;
 import pgp.vks.client.exception.CertNotFoundException;
-import pgp.vks.client.v1.dto.VerificationResponse;
-import pgp.vks.client.v1.impl.VKSImpl;
-import pgp.vks.client.v1.dto.UploadResponse;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VKSTest {
 
     private static VKS vks;
 
     @BeforeAll
-    static void prepare() {
-        vks = VKSImpl.keysDotOpenPgpDotOrg();
-    }
-
-    @Test
-    public void testGetByFingerprint() throws IOException {
-        InputStream inputStream = vks.get().byFingerprint("7F9116FEA90A5983936C7CFAA027DB2F3E1E118A");
-        Streams.pipeAll(inputStream, System.out);
-    }
-
-    @Test
-    public void testGetByFingerprint_inexistent() {
-        assertThrows(CertNotFoundException.class, () ->
-                vks.get().byFingerprint("0000000000000000000000000000000000000000"));
+    static void prepare() throws MalformedURLException {
+        vks = new VKSImpl("https://testing2.keys.openpgp.org");
     }
 
     @Test
@@ -77,16 +69,75 @@ public class VKSTest {
                 "YA3TLiYiZbEM\n" +
                 "=QRwY\n" +
                 "-----END PGP PUBLIC KEY BLOCK-----\n";
+        System.out.println(keyArmored);
         String keyFingerprint = "57417147D0C8B548220A36A60BAAB05A087768D3";
 
-        UploadResponse uploadResponse = vks.upload().cert(new ByteArrayInputStream(keyArmored.getBytes(StandardCharsets.UTF_8)));
+        Upload.Response uploadResponse = vks.upload().cert(new ByteArrayInputStream(keyArmored.getBytes(StandardCharsets.UTF_8)));
         assertEquals(keyFingerprint, uploadResponse.getKeyFingerprint());
 
-        VerificationResponse verifyResponse = vks.requestVerification().forEmailAddresses(
-                Collections.singletonList("test123asdasd@byom.de"),
-                uploadResponse.getToken(),
-                Collections.singletonList("de_DE"));
+        RequestVerify.Response verifyResponse = vks.requestVerification()
+                .forEmailAddress("test123asdasd@byom.de")
+                .execute(uploadResponse.getToken());
 
         assertEquals(keyFingerprint, verifyResponse.getKeyFingerprint());
+    }
+
+    @Test
+    public void testGetByKeyId() throws IOException {
+        long keyId = 1620429777827217382L; // subkey id of the cert
+        byte[] expectedHeader = ("-----BEGIN PGP PUBLIC KEY BLOCK-----\n" +
+                "Comment: 5741 7147 D0C8 B548 220A  36A6 0BAA B05A 0877 68D3")
+                .getBytes(StandardCharsets.UTF_8);
+        InputStream in = vks.get().byKeyId(keyId);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Streams.pipeAll(in, out);
+        in.close();
+
+        assertTrue(Arrays.areEqual(
+                expectedHeader, 0, expectedHeader.length, out.toByteArray(), 0, expectedHeader.length));
+    }
+
+    @Test
+    public void testGetByFingerprint() throws IOException {
+        byte[] expectedHeader = ("-----BEGIN PGP PUBLIC KEY BLOCK-----\n" +
+                "Comment: 5741 7147 D0C8 B548 220A  36A6 0BAA B05A 0877 68D3")
+                .getBytes(StandardCharsets.UTF_8);
+        InputStream in = vks.get().byFingerprint("57417147D0C8B548220A36A60BAAB05A087768D3");
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Streams.pipeAll(in, out);
+        in.close();
+
+        assertTrue(Arrays.areEqual(
+                expectedHeader, 0, expectedHeader.length, out.toByteArray(), 0, expectedHeader.length));
+    }
+
+    @Test
+    public void testGetByEmail() throws IOException {
+        byte[] expectedHeader = ("-----BEGIN PGP PUBLIC KEY BLOCK-----\n" +
+                "Comment: 7F91 16FE A90A 5983 936C  7CFA A027 DB2F 3E1E 118A")
+                .getBytes(StandardCharsets.UTF_8);
+
+        InputStream in = vks.get().byEmail("vanitasvitae@fsfe.org");
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Streams.pipeAll(in, out);
+        in.close();
+
+        assertTrue(Arrays.areEqual(
+                expectedHeader, 0, expectedHeader.length, out.toByteArray(), 0, expectedHeader.length));
+    }
+
+    @Test
+    public void testGetByFingerprint_inexistent() {
+        assertThrows(CertNotFoundException.class, () ->
+                vks.get().byFingerprint("0000000000000000000000000000000000000000"));
+    }
+
+    @Test
+    public void testUploadBrokenKey() {
+        byte[] buf = new byte[4096];
+        new Random().nextBytes(buf);
+
+        assertThrows(CertCannotBePublishedException.class, () ->
+                vks.upload().cert(new ByteArrayInputStream(buf)));
     }
 }

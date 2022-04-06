@@ -2,18 +2,17 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1;
+package pgp.vks.client.v1.impl;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pgp.vks.client.v1.impl.URLMapper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class V1APITest {
+public class URLMapperTest {
 
     private static URLMapper api;
 

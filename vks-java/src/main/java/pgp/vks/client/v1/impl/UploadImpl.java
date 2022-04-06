@@ -4,19 +4,15 @@
 
 package pgp.vks.client.v1.impl;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bouncycastle.util.io.Streams;
 import pgp.vks.client.Upload;
 import pgp.vks.client.exception.CertCannotBePublishedException;
-import pgp.vks.client.v1.dto.UploadRequest;
-import pgp.vks.client.v1.dto.ErrorResponse;
-import pgp.vks.client.v1.dto.UploadResponse;
+import pgp.vks.client.v1.dto.ErrorResponseDto;
+import pgp.vks.client.v1.dto.UploadRequestDto;
+import pgp.vks.client.v1.dto.UploadResponseDto;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,12 +28,8 @@ public class UploadImpl implements Upload {
     }
 
     @Override
-    public UploadResponse cert(@Nonnull InputStream certInStream) throws IOException {
-        ByteArrayOutputStream certBuf = new ByteArrayOutputStream();
-        Streams.pipeAll(certInStream, certBuf);
-        certInStream.close();
-
-        UploadRequest request = UploadRequest.fromBytes(certBuf.toByteArray());
+    public Response cert(@Nonnull InputStream certInStream) throws IOException {
+        UploadRequestDto request = UploadRequestDto.fromInputStream(certInStream);
 
         URL url = api.postUpload();
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -46,22 +38,20 @@ public class UploadImpl implements Upload {
         connection.setDoOutput(true);
 
         OutputStream out = connection.getOutputStream();
-        byte[] requestBody = json.writeValueAsBytes(request);
-        out.write(requestBody);
+        json.writeValue(out, request);
         out.flush();
         out.close();
 
         int status = connection.getResponseCode();
-        System.out.println(status);
         InputStream responseIn;
         if (status >= 400) {
             responseIn = connection.getErrorStream();
-            ErrorResponse errorResponse = json.readValue(responseIn, ErrorResponse.class);
+            ErrorResponseDto errorResponse = json.readValue(responseIn, ErrorResponseDto.class);
             throw new CertCannotBePublishedException(errorResponse.getError() + (status));
         } else {
             responseIn = connection.getInputStream();
-            UploadResponse response = json.readValue(responseIn, UploadResponse.class);
-            return response;
+            UploadResponseDto dto = json.readValue(responseIn, UploadResponseDto.class);
+            return dto.toEntity();
         }
     }
 }

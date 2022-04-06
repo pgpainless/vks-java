@@ -2,11 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+/**
+ * JSON DTOs for v1 API.
+ */
 package pgp.vks.client.v1.dto;
-
-public enum Status {
-    unpublished,
-    published,
-    revoked,
-    pending
-}

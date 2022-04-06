@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package pgp.vks.client.impl.v1.dummy_vks;
-
-public class DummyVks {
-}
+/**
+ * Client API for communicating with Verifying Key Servers.
+ */
+package pgp.vks.client;
