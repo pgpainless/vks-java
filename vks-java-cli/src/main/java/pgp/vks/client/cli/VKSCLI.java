@@ -11,6 +11,8 @@ import picocli.CommandLine;
 import java.net.MalformedURLException;
 
 @CommandLine.Command(
+        name = "vks",
+        description = "Interact with Verifying Key Servers",
         subcommands = {
                 CommandLine.HelpCommand.class,
                 GetCmd.class,
