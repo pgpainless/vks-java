@@ -6,6 +6,9 @@ package pgp.vks.client.exception;
 
 import java.net.ConnectException;
 
+/**
+ * Exception gets thrown when a public key certificate cannot be published for some reason.
+ */
 public class CertCannotBePublishedException extends ConnectException {
 
     public CertCannotBePublishedException(String errorMessage) {

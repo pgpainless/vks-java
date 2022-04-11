@@ -10,6 +10,11 @@ import pgp.vks.client.Status;
 
 import java.util.Map;
 
+/**
+ * VKS servers response to a successful verification request.
+ *
+ * @see <a href="https://keys.openpgp.org/about/api">VKS API Documentation</a>
+ */
 public class VerificationResponseDto {
 
     private final String key_fpr;
@@ -24,21 +29,41 @@ public class VerificationResponseDto {
         this.token = token;
     }
 
+    /**
+     * Uppercase OpenPGP fingerprint of the certificate.
+     *
+     * @return fingerprint
+     */
     @JsonProperty("key_fpr")
     public String getKeyFingerprint() {
         return key_fpr;
     }
 
+    /**
+     * Access token which can be used to authenticate further verification requests.
+     *
+     * @return token
+     */
     @JsonProperty("token")
     public String getToken() {
         return token;
     }
 
+    /**
+     * Map of {@link Status States} of email addresses of user-ids on the certificate.
+     *
+     * @return email address status map
+     */
     @JsonProperty("status")
     public Map<String, Status> getStatus() {
         return status;
     }
 
+    /**
+     * Convert this DTO to an entity.
+     *
+     * @return entity
+     */
     public RequestVerify.Response toEntity() {
         return new RequestVerify.Response(getKeyFingerprint(), getStatus(), getToken());
     }

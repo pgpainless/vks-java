@@ -4,6 +4,9 @@
 
 package pgp.vks.client;
 
+/**
+ * Enum representing different states an email address of a user-id on a certificate can be in.
+ */
 public enum Status {
 
     /**

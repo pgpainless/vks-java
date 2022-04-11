@@ -27,6 +27,11 @@ public class VKSImpl implements VKS {
         this.api = new URLMapper(vksService);
     }
 
+    /**
+     * Return a {@link VKSImpl} instance targeting the <pre>https://keys.openpgp.org</pre> VKS.
+     *
+     * @return VKS instance
+     */
     @SneakyThrows
     public static VKS keysDotOpenPgpDotOrg() {
         return new VKSImpl("https://keys.openpgp.org");

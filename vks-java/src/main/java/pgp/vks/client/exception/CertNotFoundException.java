@@ -6,11 +6,10 @@ package pgp.vks.client.exception;
 
 import java.net.ConnectException;
 
+/**
+ * Exception gets thrown when the queried OpenPGP certificate cannot be found on the server.
+ */
 public class CertNotFoundException extends ConnectException {
-
-    public CertNotFoundException() {
-        super();
-    }
 
     public CertNotFoundException(String message) {
         super(message);

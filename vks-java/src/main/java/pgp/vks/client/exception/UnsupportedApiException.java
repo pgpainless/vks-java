@@ -4,6 +4,10 @@
 
 package pgp.vks.client.exception;
 
+/**
+ * Exception gets thrown when an unsupported API {@link pgp.vks.client.VKS.Version} is used.
+ * E.g. user wants to use some command using v2 API, but implementation only supports v1.
+ */
 public class UnsupportedApiException extends RuntimeException {
 
     public UnsupportedApiException(String message) {

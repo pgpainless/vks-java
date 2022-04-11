@@ -6,6 +6,11 @@ package pgp.vks.client.v1.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Error response that gets returned by the server if a POST request fails.
+ *
+ * @see <a href="https://keys.openpgp.org/about/api">VKS API Documentation</a>
+ */
 public class ErrorResponseDto {
 
     private final String error;
@@ -14,6 +19,11 @@ public class ErrorResponseDto {
         this.error = error;
     }
 
+    /**
+     * Return the error message.
+     *
+     * @return error message
+     */
     @JsonProperty("error")
     public String getError() {
         return error;
