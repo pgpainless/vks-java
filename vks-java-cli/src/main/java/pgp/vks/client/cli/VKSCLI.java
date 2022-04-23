@@ -22,7 +22,7 @@ import java.net.MalformedURLException;
 )
 public class VKSCLI {
 
-    String keyServer;
+    String keyServer = "https://keys.openpgp.org";
 
     public static void main(String[] args) {
         int exitCode = execute(args);
