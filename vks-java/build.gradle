@@ -30,7 +30,7 @@ dependencies {
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     
     // JSON
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonDataBindVersion"
 }
 
 test {

@@ -12,5 +12,6 @@ allprojects {
         slf4jVersion = '1.7.36'
         logbackVersion = '1.2.11'
         lombokVersion = '1.18.24'
+        jacksonDataBindVersion = '2.13.2.2'
     }
 }
