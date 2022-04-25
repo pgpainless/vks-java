@@ -21,7 +21,7 @@ dependencies {
     implementation "org.bouncycastle:bcutil-jdk15to18:$bouncycastleVersion"
 
     // @Nonnull, @Nullable...
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
+    implementation "com.google.code.findbugs:jsr305:$jsrVersion"
 
     // Lombok (@SneakyThrows...)
     compileOnly "org.projectlombok:lombok:$lombokVersion"
