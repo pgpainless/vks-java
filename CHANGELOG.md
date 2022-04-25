@@ -9,6 +9,7 @@ SPDX-License-Identifier: Apache-2.0
 ## 0.1.2-SNAPSHOT
 - Bump `slf4j` to `1.7.36`
 - Bump `logback` to `1.2.11`
+- Bump `lombok` to `1.18.24`
 - CLI: Set `keys.openpgp.org` as default key server
 - Add name and description to parent command
 
