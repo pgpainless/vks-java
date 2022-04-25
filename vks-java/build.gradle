@@ -24,10 +24,10 @@ dependencies {
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
     // Lombok (@SneakyThrows...)
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    testCompileOnly 'org.projectlombok:lombok:1.18.22'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     
     // JSON
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
