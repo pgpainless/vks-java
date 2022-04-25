@@ -21,7 +21,7 @@ dependencies {
     implementation project(":vks-java")
 
     // CLI
-    implementation "info.picocli:picocli:4.6.3"
+    implementation "info.picocli:picocli:$picocliVersion"
 }
 
 application {
