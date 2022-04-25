@@ -10,6 +10,6 @@ allprojects {
         javaSourceCompatibility = 1.8
         junitVersion = '5.8.2'
         slf4jVersion = '1.7.36'
-        logbackVersion = '1.2.10'
+        logbackVersion = '1.2.11'
     }
 }
