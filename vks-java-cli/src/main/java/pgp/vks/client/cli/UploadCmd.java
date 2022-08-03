@@ -15,16 +15,25 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-@CommandLine.Command(name = "upload", description = "Upload an OpenPGP certificate to the key server")
+@CommandLine.Command(
+        name = "upload",
+        resourceBundle = "msg_upload")
 public class UploadCmd implements Runnable {
 
     @CommandLine.Mixin
     VKSCLI.KeyServerMixin keyServerMixin;
 
-    @CommandLine.Option(names = {"-r", "--request-verification"},
-            description = "Request verification mails for unpublished email addresses")
+    @CommandLine.Option(names = {"-r", "--request-verification"})
     boolean requestVerification;
+
+    private final ResourceBundle msg;
+
+    public UploadCmd() {
+        msg = ResourceBundle.getBundle("msg_upload", Locale.getDefault());
+    }
 
     public void run() {
         VKS vks;
@@ -51,11 +60,13 @@ public class UploadCmd implements Runnable {
                 }
             }
 
-            System.out.println("Uploaded key " + response.getKeyFingerprint());
-            System.out.println("Token: " + response.getToken());
+            String msgUpload = String.format(msg.getString("output.uploaded_key"),
+                    response.getKeyFingerprint(), response.getToken());
+            System.out.println(msgUpload);
 
+            String msgStatus = msg.getString("output.status");
             if (!requestVerification || unpublished.isEmpty()) {
-                System.out.println("Status:");
+                System.out.println(msgStatus);
                 for (String address : response.getStatus().keySet()) {
                     Status status = response.getStatus().get(address);
                     System.out.format("%-" + maxMailLen + "s %s\n", address, status);
@@ -65,7 +76,7 @@ public class UploadCmd implements Runnable {
 
             RequestVerify.Response verifyResponse = vks.requestVerification().forEmailAddresses(unpublished.toArray(new String[0]))
                     .execute(response.getToken());
-            System.out.println("Status:");
+            System.out.println(msgStatus);
             for (String address : verifyResponse.getStatus().keySet()) {
                 Status status = response.getStatus().get(address);
                 System.out.format("%-" + maxMailLen + "s %s\n", address, status);

@@ -9,10 +9,12 @@ import pgp.vks.client.VKSImpl;
 import picocli.CommandLine;
 
 import java.net.MalformedURLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @CommandLine.Command(
         name = "vks",
-        description = "Interact with Verifying Key Servers",
+        resourceBundle = "msg_vks",
         subcommands = {
                 CommandLine.HelpCommand.class,
                 GetCmd.class,
@@ -32,14 +34,15 @@ public class VKSCLI {
     }
 
     public static int execute(String[] args) {
-        return new CommandLine(VKSCLI.class)
-                .setExitCodeExceptionMapper(new CommandLine.IExitCodeExceptionMapper() {
+        CommandLine cmd = new CommandLine(VKSCLI.class);
+        cmd.setExitCodeExceptionMapper(new CommandLine.IExitCodeExceptionMapper() {
                     @Override
                     public int getExitCode(Throwable exception) {
                         return 1;
                     }
-                })
-                .setCommandName("vkscli")
+                });
+        cmd.getSubcommands().get("help").setResourceBundle(ResourceBundle.getBundle("msg_help", Locale.getDefault()));
+        return cmd.setCommandName("vkscli")
                 .execute(args);
     }
 
@@ -53,7 +56,6 @@ public class VKSCLI {
         VKSCLI parent;
 
         @CommandLine.Option(names = "--key-server",
-                description = "Address of the Verifying Key Server.\nDefaults to 'https://keys.openpgp.org'",
                 paramLabel = "KEYSERVER")
         public void setKeyServer(String keyServer) {
             parent.keyServer = keyServer;

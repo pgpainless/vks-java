@@ -12,23 +12,32 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-@CommandLine.Command(name = "request-verification", description = "Request verification for unverified user-ids")
+@CommandLine.Command(
+        name = "request-verification",
+        resourceBundle = "msg_request_verification")
 public class RequestVerificationCmd implements Runnable {
 
     @CommandLine.Mixin
     VKSCLI.KeyServerMixin keyServerMixin;
 
-    @CommandLine.Option(names = {"-t", "--token"}, description = "Access token. Can be retrieved by uploading the certificate.",
+    @CommandLine.Option(names = {"-t", "--token"},
             required = true, arity = "1", paramLabel = "TOKEN")
     String token;
 
-    @CommandLine.Option(names = {"-l", "--locale"}, description = "Locale for the verification mail")
+    @CommandLine.Option(names = {"-l", "--locale"})
     List<String> locale = Arrays.asList("en_US", "en_GB");
 
-    @CommandLine.Option(names = {"-e", "--email"}, description = "Email addresses to request a verification mail for", required = true, arity = "1..*")
+    @CommandLine.Option(names = {"-e", "--email"}, required = true, arity = "1..*")
     String[] addresses = new String[0];
 
+    private final ResourceBundle msg;
+
+    public RequestVerificationCmd() {
+        msg = ResourceBundle.getBundle("msg_request_verification", Locale.getDefault());
+    }
 
     @Override
     public void run() {
@@ -44,10 +53,9 @@ public class RequestVerificationCmd implements Runnable {
             RequestVerify.Response response = requestVerify
                     .forEmailAddresses(addresses)
                     .execute(token, locale);
-
-            System.out.println("Verification E-Mails for key " + response.getKeyFingerprint() + " have been sent.");
-            System.out.println("Token: " + response.getToken());
-            System.out.println("Status:");
+            System.out.printf(msg.getString("output.mails_sent"), response.getKeyFingerprint());
+            System.out.printf(msg.getString("output.token"), response.getToken());
+            System.out.println(msg.getString("output.status"));
             for (String address : response.getStatus().keySet()) {
                 System.out.println("\t" + address + "\t" + response.getStatus().get(address));
             }

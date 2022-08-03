@@ -11,8 +11,12 @@ import picocli.CommandLine;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-@CommandLine.Command(name = "get", description = "Retrieve an OpenPGP certificate from the key server")
+@CommandLine.Command(
+        name = "get",
+        resourceBundle = "msg_get")
 public class GetCmd implements Runnable {
 
     @CommandLine.Mixin
@@ -22,14 +26,20 @@ public class GetCmd implements Runnable {
     Exclusive by;
 
     static class Exclusive {
-        @CommandLine.Option(names = {"-f", "--by-fingerprint"}, description = "Retrieve a key by its fingerprint (NOT prefixed with '0x')")
+        @CommandLine.Option(names = {"-f", "--by-fingerprint"})
         String fingerprint;
 
-        @CommandLine.Option(names = {"-i", "--by-keyid"}, description = "Retrieve a key by its decimal key ID or that of one of its subkeys.")
+        @CommandLine.Option(names = {"-i", "--by-keyid"})
         Long keyId;
 
-        @CommandLine.Option(names = {"-e", "--by-email"}, description = "Retrieve a key by email address.")
+        @CommandLine.Option(names = {"-e", "--by-email"})
         String email;
+    }
+
+    private final ResourceBundle msg;
+
+    public GetCmd() {
+        msg = ResourceBundle.getBundle("msg_get", Locale.getDefault());
     }
 
     public void run() {
@@ -50,7 +60,7 @@ public class GetCmd implements Runnable {
             } else if (by.email != null) {
                 inputStream = get.byEmail(by.email);
             } else {
-                throw new IllegalArgumentException("Missing --by-* option.");
+                throw new IllegalArgumentException(msg.getString("error.missing_by_option"));
             }
 
             int read;
