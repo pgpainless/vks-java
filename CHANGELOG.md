@@ -6,6 +6,10 @@ SPDX-License-Identifier: Apache-2.0
 
 # Changelog
 
+## 0.1.3-SNAPSHOT
+- Bump `bc-util` to `1.72`
+- Add support for resource bundles for i18n
+
 ## 0.1.2
 - Bump `slf4j` to `1.7.36`
 - Bump `logback` to `1.2.11`
