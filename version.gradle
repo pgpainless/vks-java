@@ -8,7 +8,7 @@ allprojects {
         isSnapshot = true
         minAndroidSdk = 10
         javaSourceCompatibility = 1.8
-        bouncycastleVersion = '1.72'
+        bouncycastleVersion = '1.75'
         junitVersion = '5.8.2'
         jsrVersion = '3.0.2'
         slf4jVersion = '1.7.36'
