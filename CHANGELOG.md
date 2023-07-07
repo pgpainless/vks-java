@@ -7,7 +7,8 @@ SPDX-License-Identifier: Apache-2.0
 # Changelog
 
 ## 0.1.3-SNAPSHOT
-- Bump `bc-util` to `1.72`
+- Bump `bc-util` to `1.75`
+- Bump `jackson-databind` to `2.15.2`
 - Add support for resource bundles for i18n
 
 ## 0.1.2
