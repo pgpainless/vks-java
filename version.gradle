@@ -15,6 +15,6 @@ allprojects {
         logbackVersion = '1.2.11'
         lombokVersion = '1.18.24'
         picocliVersion = '4.6.3'
-        jacksonDataBindVersion = '2.13.2.2'
+        jacksonDataBindVersion = '2.15.2'
     }
 }
