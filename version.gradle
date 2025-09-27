@@ -6,7 +6,7 @@ allprojects {
     ext {
         shortVersion = '0.1.4'
         isSnapshot = true
-        javaSourceCompatibility = 1.8
+        javaSourceCompatibility = 11
         bouncycastleVersion = '1.82'
         junitVersion = '5.8.2'
         jsrVersion = '3.0.2'
