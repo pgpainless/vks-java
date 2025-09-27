@@ -29,7 +29,7 @@ public class VKSTest {
 
     @BeforeAll
     static void prepare() throws MalformedURLException {
-        vks = new VKSImpl("https://testing2.keys.openpgp.org");
+        vks = new VKSImpl("https://testing.keys.openpgp.org");
     }
 
     @Test
@@ -111,10 +111,10 @@ public class VKSTest {
     @Test
     public void testGetByEmail() throws IOException {
         byte[] expectedHeader = ("-----BEGIN PGP PUBLIC KEY BLOCK-----\n" +
-                "Comment: 7F91 16FE A90A 5983 936C  7CFA A027 DB2F 3E1E 118A")
+                "Comment: 5741 7147 D0C8 B548 220A  36A6 0BAA B05A 0877 68D3")
                 .getBytes(StandardCharsets.UTF_8);
 
-        InputStream in = vks.get().byEmail("vanitasvitae@fsfe.org");
+        InputStream in = vks.get().byEmail("test123asdasd@byom.de");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         Streams.pipeAll(in, out);
         in.close();
