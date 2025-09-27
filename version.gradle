@@ -12,7 +12,7 @@ allprojects {
         jsrVersion = '3.0.2'
         slf4jVersion = '1.7.36'
         logbackVersion = '1.5.13'
-        lombokVersion = '1.18.24'
+        lombokVersion = '1.18.42'
         picocliVersion = '4.6.3'
         jacksonDataBindVersion = '2.15.2'
     }
