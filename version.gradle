@@ -6,7 +6,6 @@ allprojects {
     ext {
         shortVersion = '0.1.4'
         isSnapshot = true
-        minAndroidSdk = 10
         javaSourceCompatibility = 1.8
         bouncycastleVersion = '1.75'
         junitVersion = '5.8.2'
