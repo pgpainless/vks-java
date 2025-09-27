@@ -7,7 +7,7 @@ allprojects {
         shortVersion = '0.1.4'
         isSnapshot = true
         javaSourceCompatibility = 1.8
-        bouncycastleVersion = '1.75'
+        bouncycastleVersion = '1.82'
         junitVersion = '5.8.2'
         jsrVersion = '3.0.2'
         slf4jVersion = '1.7.36'
