@@ -1,5 +1,7 @@
 steps:
   - name: build
+    when:
+      branch: main
     image: gradle:8.8-jdk11
     commands:
       - git checkout $CI_COMMIT_BRANCH
