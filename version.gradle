@@ -4,8 +4,8 @@
 
 allprojects {
     ext {
-        shortVersion = '0.1.4'
-        isSnapshot = false
+        shortVersion = '0.1.5'
+        isSnapshot = true
         javaSourceCompatibility = 11
         bouncycastleVersion = '1.82'
         junitVersion = '5.8.2'
