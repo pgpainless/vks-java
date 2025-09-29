@@ -18,7 +18,7 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 
     // Arrays.areEqual, Base64...
-    implementation "org.bouncycastle:bcutil-jdk15to18:$bouncycastleVersion"
+    implementation "org.bouncycastle:bcutil-jdk18on:$bouncycastleVersion"
 
     // @Nonnull, @Nullable...
     implementation "com.google.code.findbugs:jsr305:$jsrVersion"

@@ -6,6 +6,9 @@ SPDX-License-Identifier: Apache-2.0
 
 # Changelog
 
+## 0.1.5-SNAPSHOT
+- Switch `bcutil` from `jdk15to18` over to the `jdk18on` variant
+
 ## 0.1.4
 - Bump `bc-util` to `1.82`
 - Bump `logback` to `1.5.13`
