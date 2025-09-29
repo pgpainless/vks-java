@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 
 # Changelog
 
-## 0.1.4-SNAPSHOT
+## 0.1.4
 - Bump `bc-util` to `1.82`
 - Bump `logback` to `1.5.13`
 - Bump `lombok` to `1.18.42`
